@@ -13,6 +13,7 @@ def test_propagate_impact_simple():
     G.add_node("test_1", type="test")
 
     # Между тестом и модулем создаётся ребро типа TESTS с весом единица
+    # ОТ теста к модулю node.name = тест, imp = модуль
     G.add_edge("test_1", "m1", type="TESTS", weight=1.0)
 
     # распространение влияния от модуля m1
@@ -41,10 +42,11 @@ def test_precision_recall_f1():
 
 # идеальный рейтинг даёт высокий APFD
 def test_apfd_perfect_ranking():
-    ranked = ["t1", "t2", "t3"]  # упавшие стоят в начале
-    failed = {"t1", "t2"}        # оба упавших в топе
-    # Вычисляется метрика
+    # n = 10, m = 2, оба упавших на позициях 1 и 2
+    ranked = ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8", "t9", "t10"]
+    failed = {"t1", "t2"}
     score = apfd(ranked, failed)
+    # APFD = 1 - (1+2)/(10*2) + 1/(2*10) = 1 - 0.15 + 0.05 = 0.9
     assert score > 0.8
 
 # Тест проверяет, что RL агент корректно обновляет Q значения, оценка выше 0
