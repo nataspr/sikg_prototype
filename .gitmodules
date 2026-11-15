@@ -1,0 +1,3 @@
+[submodule "external/isort"]
+	path = external/isort
+	url = https://github.com/PyCQA/isort.git
